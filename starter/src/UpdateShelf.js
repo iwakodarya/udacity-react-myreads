@@ -1,11 +1,17 @@
 import { useState } from "react";
 
-const UpdateShelf = ({ currentShelf }) => {
-  const [selectedShelf, setSelectedShelf] = useState(currentShelf);
+const UpdateShelf = ({ book, onShelfChange }) => {
+  const [selectedShelf, setSelectedShelf] = useState(book.shelf);
+
+  const handleShelfChange = (event) => {
+    const newShelf = event.target.value;
+    setSelectedShelf(newShelf);
+    onShelfChange(book, newShelf);
+  };
 
   return (
     <div className="book-shelf-changer">
-      <select value={selectedShelf}>
+      <select value={selectedShelf} onChange={handleShelfChange}>
         <option value="none" disabled>
           Move to...
         </option>

@@ -1,6 +1,6 @@
 import UpdateShelf from "./UpdateShelf";
 
-const Book = ({ bookInfo }) => {
+const Book = ({ book, onShelfChange }) => {
   return (
     <li>
       <div className="book">
@@ -10,13 +10,13 @@ const Book = ({ bookInfo }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: "url(" + bookInfo.imageLinks.thumbnail + ")",
+              backgroundImage: "url(" + book.imageLinks.thumbnail + ")",
             }}
           ></div>
-          <UpdateShelf currentShelf={bookInfo.shelf}></UpdateShelf>
+          <UpdateShelf book={book} onShelfChange={onShelfChange}></UpdateShelf>
         </div>
-        <div className="book-title">{bookInfo.title}</div>
-        <div className="book-authors">{bookInfo.authors}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     </li>
   );

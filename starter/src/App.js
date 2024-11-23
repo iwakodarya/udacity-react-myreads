@@ -7,7 +7,16 @@ function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
   const [myBooks, setMyBooks] = useState([]);
 
-  console.log(myBooks);
+  const updateShelf = (bookToUpdate, newShelf) => {
+    const updateBookInfo = async () => BooksAPI.update(bookToUpdate, newShelf);
+    setMyBooks(
+      myBooks.map((book) =>
+        book === bookToUpdate ? { ...book, shelf: newShelf } : book
+      )
+    );
+
+    updateBookInfo();
+  };
 
   useEffect(() => {
     const getCurrentBooks = async () => {
@@ -48,14 +57,17 @@ function App() {
           <div className="list-books-content"></div>
           <Bookshelf
             books={myBooks.filter((b) => b.shelf === "currentlyReading")}
+            onShelfChange={updateShelf}
             shelfName="Currently Reading"
           ></Bookshelf>
           <Bookshelf
             books={myBooks.filter((b) => b.shelf === "wantToRead")}
+            onShelfChange={updateShelf}
             shelfName="Want To Read"
           ></Bookshelf>
           <Bookshelf
             books={myBooks.filter((b) => b.shelf === "read")}
+            onShelfChange={updateShelf}
             shelfName="Read"
           ></Bookshelf>
           <div className="open-search">
