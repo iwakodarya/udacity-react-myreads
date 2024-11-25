@@ -3,7 +3,7 @@ import * as BooksAPI from "./BooksAPI";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const SearchPage = ({ myBooks, onShelfChange = { onShelfChange } }) => {
+const SearchPage = ({ myBooks, onShelfChange }) => {
   const [searchStr, setSearchStr] = useState("");
   const [searchBookResults, setSearchBookResults] = useState([]);
 
@@ -22,6 +22,8 @@ const SearchPage = ({ myBooks, onShelfChange = { onShelfChange } }) => {
         const newBooks = bookSearchList.filter(
           (searchedBook) => !myBooks.some((book) => book.id === searchedBook.id)
         );
+        // Set shelf to none for new books
+        newBooks.forEach((book) => (book.shelf = "none"));
 
         setSearchBookResults(currBooks.concat(newBooks));
       } catch (error) {
