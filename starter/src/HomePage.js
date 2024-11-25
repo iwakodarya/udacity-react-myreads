@@ -1,4 +1,5 @@
 import { Bookshelf } from "./Bookshelf";
+import { Link } from "react-router-dom";
 
 const HomePage = ({ books, onShelfChange }) => {
   return (
@@ -23,7 +24,7 @@ const HomePage = ({ books, onShelfChange }) => {
         shelfName="Read"
       ></Bookshelf>
       <div className="open-search">
-        <a onClick={() => {}}>Add a book</a>
+        <Link to="/search">Add a book</Link>
       </div>
     </div>
   );

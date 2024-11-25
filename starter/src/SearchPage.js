@@ -1,6 +1,7 @@
 import { BooksList } from "./Bookshelf";
 import * as BooksAPI from "./BooksAPI";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SearchPage = ({ myBooks, onShelfChange = { onShelfChange } }) => {
   const [searchStr, setSearchStr] = useState("");
@@ -34,9 +35,9 @@ const SearchPage = ({ myBooks, onShelfChange = { onShelfChange } }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <a className="close-search" onClick={() => {}}>
+        <Link className="close-search" to="/">
           Close
-        </a>
+        </Link>
         <div className="search-books-input-wrapper">
           <input
             value={searchStr}

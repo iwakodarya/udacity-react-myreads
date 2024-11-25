@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import SearchPage from "./SearchPage";
 import HomePage from "./HomePage";
@@ -33,8 +34,25 @@ function App() {
 
   return (
     <div className="app">
-      <SearchPage myBooks={myBooks} onShelfChange={updateShelf}></SearchPage>
-      <HomePage books={myBooks} onShelfChange={updateShelf}></HomePage>
+      <Routes>
+        <Route
+          exact
+          path="/search"
+          element={
+            <SearchPage
+              myBooks={myBooks}
+              onShelfChange={updateShelf}
+            ></SearchPage>
+          }
+        />
+        <Route
+          exact
+          path="/"
+          element={
+            <HomePage books={myBooks} onShelfChange={updateShelf}></HomePage>
+          }
+        />
+      </Routes>
     </div>
   );
 }
