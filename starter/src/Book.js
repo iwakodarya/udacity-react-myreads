@@ -16,7 +16,7 @@ const Book = ({ book, onShelfChange }) => {
           <UpdateShelf book={book} onShelfChange={onShelfChange}></UpdateShelf>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}</div>
+        <div className="book-authors">{book.authors.toString()}</div>
       </div>
     </li>
   );
