@@ -5,16 +5,17 @@ import SearchPage from "./SearchPage";
 import HomePage from "./HomePage";
 
 function App() {
-  const [showSearchPage, setShowSearchpage] = useState(false);
   const [myBooks, setMyBooks] = useState([]);
 
   const updateShelf = (bookToUpdate, newShelf) => {
     const updateBookInfo = async () => {
       const response = await BooksAPI.update(bookToUpdate, newShelf);
       setMyBooks(
-        myBooks.map((book) =>
-          book === bookToUpdate ? { ...book, shelf: newShelf } : book
-        )
+        myBooks.some((book) => book.id === bookToUpdate.id)
+          ? myBooks.map((book) =>
+              book.id === bookToUpdate.id ? { ...book, shelf: newShelf } : book
+            )
+          : [...myBooks, { ...bookToUpdate, shelf: newShelf }]
       );
     };
 
@@ -32,7 +33,7 @@ function App() {
 
   return (
     <div className="app">
-      <SearchPage></SearchPage>
+      <SearchPage myBooks={myBooks} onShelfChange={updateShelf}></SearchPage>
       <HomePage books={myBooks} onShelfChange={updateShelf}></HomePage>
     </div>
   );
