@@ -8,19 +8,16 @@ import HomePage from "./HomePage";
 function App() {
   const [myBooks, setMyBooks] = useState([]);
 
-  const updateShelf = (bookToUpdate, newShelf) => {
-    const updateBookInfo = async () => {
-      const response = await BooksAPI.update(bookToUpdate, newShelf);
-      setMyBooks(
-        myBooks.some((book) => book.id === bookToUpdate.id)
-          ? myBooks.map((book) =>
-              book.id === bookToUpdate.id ? { ...book, shelf: newShelf } : book
-            )
-          : [...myBooks, { ...bookToUpdate, shelf: newShelf }]
-      );
-    };
+  const updateShelf = async (bookToUpdate, newShelf) => {
+    const response = await BooksAPI.update(bookToUpdate, newShelf);
 
-    updateBookInfo();
+    setMyBooks(
+      myBooks.some((book) => book.id === bookToUpdate.id)
+        ? myBooks.map((book) =>
+            book.id === bookToUpdate.id ? { ...book, shelf: newShelf } : book
+          )
+        : [...myBooks, { ...bookToUpdate, shelf: newShelf }]
+    );
   };
 
   useEffect(() => {

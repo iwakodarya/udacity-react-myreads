@@ -11,28 +11,15 @@ const UpdateShelf = ({ book, onShelfChange }) => {
 
   return (
     <div className="book-shelf-changer">
-      {selectedShelf === "none" ? (
-        // Options for new books
-        <select value={selectedShelf} onChange={handleShelfChange}>
-          <option value="none" disabled>
-            Add to...
-          </option>
-          <option value="currentlyReading">Currently Reading</option>
-          <option value="wantToRead">Want to Read</option>
-          <option value="read">Read</option>
-        </select>
-      ) : (
-        // Options for books currently on shelves
-        <select value={selectedShelf} onChange={handleShelfChange}>
-          <option value="none" disabled>
-            Move to...
-          </option>
-          <option value="currentlyReading">Currently Reading</option>
-          <option value="wantToRead">Want to Read</option>
-          <option value="read">Read</option>
-          <option value="none">None</option>
-        </select>
-      )}
+      <select value={selectedShelf} onChange={handleShelfChange}>
+        <option value="none" disabled>
+          {selectedShelf === "none" ? "Add to..." : "Move to..."}
+        </option>
+        <option value="currentlyReading">Currently Reading</option>
+        <option value="wantToRead">Want to Read</option>
+        <option value="read">Read</option>
+        {selectedShelf !== "none" && <option value="none">None</option>}
+      </select>
     </div>
   );
 };

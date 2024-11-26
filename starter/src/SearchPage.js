@@ -7,31 +7,23 @@ const SearchPage = ({ myBooks, onShelfChange }) => {
   const [searchStr, setSearchStr] = useState("");
   const [searchBookResults, setSearchBookResults] = useState([]);
 
-  const handleNewSearch = (event) => {
+  const handleNewSearch = async (event) => {
     setSearchStr(event.target.value);
 
-    const getSearchResults = async (query) => {
-      const bookSearchList = await BooksAPI.search(query, 10);
+    try {
+      const bookSearchList = await BooksAPI.search(searchStr, 10);
 
-      try {
-        // Books on my shelf that are searched
-        const currBooks = myBooks.filter((currBook) =>
-          bookSearchList.some((book) => book.id === currBook.id)
-        );
-        // Searched books that aren't in my shelves
-        const newBooks = bookSearchList.filter(
-          (searchedBook) => !myBooks.some((book) => book.id === searchedBook.id)
-        );
-        // Set shelf to none for new books
-        newBooks.forEach((book) => (book.shelf = "none"));
+      const results = bookSearchList.map((book) => {
+        const foundBook = myBooks.find((myBook) => myBook.id === book.id);
 
-        setSearchBookResults(currBooks.concat(newBooks));
-      } catch (error) {
-        setSearchBookResults([]);
-      }
-    };
+        if (foundBook) return foundBook;
+        else return { ...book, shelf: "none" };
+      });
 
-    getSearchResults(searchStr);
+      setSearchBookResults(results);
+    } catch (error) {
+      setSearchBookResults([]);
+    }
   };
 
   return (
@@ -50,10 +42,14 @@ const SearchPage = ({ myBooks, onShelfChange }) => {
         </div>
       </div>
       <div className="search-books-results">
-        <BooksList
-          books={searchBookResults}
-          onShelfChange={onShelfChange}
-        ></BooksList>
+        {searchBookResults.length > 0 ? (
+          <BooksList
+            books={searchBookResults}
+            onShelfChange={onShelfChange}
+          ></BooksList>
+        ) : (
+          <p>No results found.</p>
+        )}
       </div>
     </div>
   );
