@@ -1,4 +1,17 @@
 # MyReads Project
+This project is one of the projects of Udacity's React Nanodegree program. Some starter code was provided, including BooksAPI, HTML, CSS, icons. The work I did is in /starter/src folder. 
+
+Core skills showcased here:
+* React (useState, useEffect) for UX
+* React-router-dom for browser navigation
+
+To run the project: 
+1. `npm install` to install dependencies
+2. `npm start` to start the dev server
+
+### ** BELOW: Original README provided by Udacity with instructions for the project ** 
+
+# MyReads Project
 
 This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 
