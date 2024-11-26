@@ -8,10 +8,11 @@ const SearchPage = ({ myBooks, onShelfChange }) => {
   const [searchBookResults, setSearchBookResults] = useState([]);
 
   const handleNewSearch = async (event) => {
-    setSearchStr(event.target.value);
+    const searchQuery = event.target.value;
+    setSearchStr(searchQuery);
 
     try {
-      const bookSearchList = await BooksAPI.search(searchStr, 10);
+      const bookSearchList = await BooksAPI.search(searchQuery, 10);
 
       const results = bookSearchList.map((book) => {
         const foundBook = myBooks.find((myBook) => myBook.id === book.id);
