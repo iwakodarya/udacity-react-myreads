@@ -9,8 +9,9 @@ function App() {
   const [myBooks, setMyBooks] = useState([]);
 
   const updateShelf = async (bookToUpdate, newShelf) => {
-    const response = await BooksAPI.update(bookToUpdate, newShelf);
+    await BooksAPI.update(bookToUpdate, newShelf);
 
+    // Ideally response of API above should set this state directly.
     setMyBooks(
       myBooks.some((book) => book.id === bookToUpdate.id)
         ? myBooks.map((book) =>
